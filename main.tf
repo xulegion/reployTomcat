@@ -1,3 +1,7 @@
+resource "random_id" "hash" {
+  byte_length = 8
+}
+
 resource "alicloud_instance" "instance"{
     count = 1
     instance_name = "myinstance"
@@ -9,6 +13,13 @@ resource "alicloud_instance" "instance"{
     tags = {
       from = "terraform"
     }
+}
+
+resource "alicloud_subnet" "subnet" {
+  vpc_id                  = alicloud_vpc.vpc.id
+  cidr_block              = "10.86.100.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = var.az
 }
 
 resource "alicloud_instance" "this" {
