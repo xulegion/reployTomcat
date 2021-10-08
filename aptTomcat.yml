@@ -1,0 +1,21 @@
+variables:
+    # 云商认证密钥可以通过环境变量传入，以下示例为添加 aliyun 的 API 密钥
+    - name: ALICLOUD_ACCESS_KEY
+      type: environment   # 变量类型为 environment(即环境变量)
+      value: xxxxxxxxxx
+      description: 阿里云访问密钥ID
+      sensitive: false
+    - name: ALICLOUD_SECRET_KEY
+      type: environment
+      value: xxxxxxxxxx
+      description: 阿里云访问密钥
+      sensitive: true # 是否为敏感变量(敏感变量会加密保存，且前端不展示)
+
+  template:
+    name: 演示云模板
+    description: 安装tomcat
+    repo_id: xulegion/reployTomcat.git
+    revision: main
+    tf_vars_file: qa-env.tfvars
+    playbook: ansible/playbook.yml
+    workdir:
