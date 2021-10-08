@@ -15,6 +15,14 @@ resource "alicloud_instance" "instance"{
     }
 }
 
+resource "alicloud_vpc" "vpc" {
+  cidr_block = "10.86.0.0/16"
+
+  tags = {
+    Name = "TF-Ansible-VPC-${random_id.hash.hex}"
+  }
+}
+
 resource "alicloud_subnet" "subnet" {
   vpc_id                  = alicloud_vpc.vpc.id
   cidr_block              = "10.86.100.0/24"
